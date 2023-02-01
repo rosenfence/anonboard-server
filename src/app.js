@@ -4,8 +4,8 @@ const cors = require('cors');
 
 app.use(express.json());
 app.use(cors());
-app.listen(8080, () => {
-  console.log('http://localhost:8080');
+app.listen(3001, () => {
+  console.log('http://localhost:3001');
 });
 
 //게시글 들어갈곳
@@ -17,6 +17,7 @@ const posts = {
 //! 글 읽어오기
 app.get('/', (req, res) => {
   res.send(posts.data);
+  console.log('get 요청 발생');
 });
 
 //! 글 작성하기
@@ -32,6 +33,7 @@ app.post('/', (req, res) => {
   posts.data.push({ ...req.body, id: posts.id });
   posts.id++;
   res.send({ message: '게시글이 등록되었습니다.' });
+  console.log('post 요청 발생');
 });
 
 //! 글 수정하기
@@ -57,6 +59,7 @@ app.patch('/', (req, res) => {
   //다 만족하면 글 수정
   post.content = content;
   res.send({ message: '게시글이 수정되었습니다.' });
+  console.log('patch 요청 발생');
 });
 
 //! 글 삭제하기
@@ -82,4 +85,5 @@ app.delete('/', (req, res) => {
   //다 만족하면 글 삭제
   posts.data = posts.data.filter((_post) => _post.id !== post.id);
   res.send({ message: '게시글을 삭제했습니다.' });
+  console.log('delete 요청 발생');
 });
